@@ -1,0 +1,88 @@
+﻿<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()" >
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Nombre</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Nombre requerido</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Apellido</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Apellido es requerido/div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Usuario sistema</label>
+            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">Usuario es requerido</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">
+                Vendedores:</label>
+                <select name="countryName" class="form-control" [(ngModel)]="selectedDepto" (ngModelChange)="mySelectHandler($event)" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let c of countries" value="{{ c.id }}">{{ c.name }}</option>
+                  </select>
+    
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">
+                Productos:</label>
+                <select name="states" class="form-control" id="states" [(ngModel)]="selectedCiudad" (ngModelChange)="mySelectHandlerProd($event)"  [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let s of listaProductos" value="{{ s.id }}">{{ s.name }}</option>
+                  </select>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">
+                Eventos y notificaciones.</label>
+            <table>
+              <tr *ngFor="let evento of listaNotificaciones">
+                <td> 
+                  <td>
+                    {{evento.nota}}
+
+                  </td>
+                  <td>
+                    <a routerLink="../../editnotify/{{evento.id}}" class="btn btn-sm btn-primary me-1">Editar evento</a>
+
+                    
+                    <button (click)="deleteTest(evento.id);$event.preventDefault()" class="btn btn-sm btn-primary" id="btn1" >Borrar evento</button>
+   
+
+                  </td>
+                </tr>
+
+              </table> 
+              
+        </div>
+    
+    </div>  
+    <div class="mb-3">
+        <label class="form-label">Nuevo evento</label>
+            <input type="text" formControlName="notificaciones" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">Dato requerido</div>
+            </div>
+    </div>
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" ></span>
+            Guardar evento
+        </button>
+        <a routerLink="/users" class="btn btn-link">Volver</a>
+    </div>
+</form>
+
+
