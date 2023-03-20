@@ -1,4 +1,4 @@
-﻿<h1>{{title}}</h1>
+<h1>{{title}}</h1>
 <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class="row">
         <div class="mb-3 col">
@@ -31,7 +31,7 @@
             <label class="form-label">
                 Vendedores:</label>
                 <select name="countryName" class="form-control" [(ngModel)]="selectedDepto" (ngModelChange)="mySelectHandler($event)" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let c of countries" value="{{ c.id }}">{{ c.name }}</option>
+                    <option *ngFor="let c of vendedores" value="{{ c.id }}">{{ c.name }}</option>
                   </select>
     
         </div>
@@ -43,6 +43,54 @@
                   </select>
         </div>
     </div>  
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">
+                Eventos y notificaciones.</label>
+            <table>
+              <tr *ngFor="let evento of listaNotificaciones">
+                <td> 
+                  <td>
+                    {{evento.nota}}
+
+                  </td>
+                  <td>
+                    <a routerLink="../../editnotify/{{evento.id}}" class="btn btn-sm btn-primary me-1">Editar evento</a>
+
+                    
+                    <button (click)="deleteTest(evento.id);$event.preventDefault()" class="btn btn-sm btn-primary" id="btn1" >Borrar evento</button>
+   
+
+                  </td>
+                </tr>
+
+              </table> 
+              
+        </div>
+    
+    </div>  
+    <div class="mb-3">
+        <label class="form-label">Nuevo evento</label>
+            <input type="text" formControlName="notificaciones" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.notificaciones.errors }" />
+            <div *ngIf="submitted && f.notificaciones.errors" class="invalid-feedback">
+                <div *ngIf="f.notificaciones.errors.required">El evento o nota es requerido</div>
+            </div>
+    </div>
+    <div class="mb-3">
+        <button  class="btn btn-primary">
+            <span *ngIf="submitting" ></span>
+            Guardar evento
+        </button>
+        <a routerLink="/users" class="btn btn-link">Volver</a>
+    </div>
+</form>
+
+
+
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>
+
     <div class="row">
         <div class="mb-3 col">
             <label class="form-label">
